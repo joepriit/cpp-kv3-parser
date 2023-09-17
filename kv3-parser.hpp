@@ -9,7 +9,7 @@
 #include <variant>
 #include <optional>
 
-class KV3Parser
+class c_kv3_parser
 {
 public:
     struct value_struct_t;
