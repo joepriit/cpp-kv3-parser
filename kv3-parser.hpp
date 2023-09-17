@@ -23,6 +23,7 @@ public:
         value_t value;
     };
 
+public:
     void parse(const std::string &content)
     {
         this->content = content;
@@ -82,6 +83,14 @@ public:
         return "";
     }
 
+    std::vector<std::string> find_key_paths_with_key_name(const std::string &search_key) const
+    {
+        std::vector<std::string> paths;
+        find_key_paths_with_key_name(parsed_data, search_key, paths);
+        return paths;
+    }
+
+private:
     void find_key_paths_with_key_name(const value_t &root, const std::string &search_key, std::vector<std::string> &paths, const std::string &current_path = "") const
     {
         if (std::holds_alternative<object_t>(root))
@@ -107,18 +116,6 @@ public:
             }
         }
     }
-
-    std::vector<std::string> find_key_paths_with_key_name(const std::string &search_key) const
-    {
-        std::vector<std::string> paths;
-        find_key_paths_with_key_name(parsed_data, search_key, paths);
-        return paths;
-    }
-
-private:
-    std::string content;
-    size_t index;
-    value_t parsed_data;
 
     void skip_comments_and_metadata()
     {
@@ -287,6 +284,11 @@ private:
         }
         return result.str();
     }
+
+private:
+    std::string content;
+    size_t index;
+    value_t parsed_data;
 };
 
 #endif
